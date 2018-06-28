@@ -1,20 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Android.App;
+using Android.Content;
 using Android.Support.V4.View;
 using CarouselView.FormsPlugin.Abstractions;
 using CarouselView.FormsPlugin.Android;
+using Com.ViewPagerIndicator;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using System.ComponentModel;
-
 using AViews = Android.Views;
 using AWidget = Android.Widget;
-using System.Collections.Specialized;
-using System.Collections.Generic;
-using Android.Content;
-using Android.App;
-using Com.ViewPagerIndicator;
 
 /*
  * Save state in Android:
@@ -95,7 +94,7 @@ namespace CarouselView.FormsPlugin.Android
 
                 // KeyboardService code
                 Xamarin.Forms.Application.Current.MainPage.SizeChanged -= MainPage_SizeChanged;
-                keyboardService.VisibilityChanged -= KeyboardService_VisibilityChanged;
+                if (keyboardService != null) keyboardService.VisibilityChanged -= KeyboardService_VisibilityChanged;
             }
 
             if (e.NewElement != null)
@@ -108,7 +107,7 @@ namespace CarouselView.FormsPlugin.Android
 
                 // KeyboardService code
                 Xamarin.Forms.Application.Current.MainPage.SizeChanged += MainPage_SizeChanged;
-                keyboardService.VisibilityChanged += KeyboardService_VisibilityChanged;
+                if (keyboardService != null) keyboardService.VisibilityChanged += KeyboardService_VisibilityChanged;
             }
         }
 

@@ -35,10 +35,10 @@ using Xamarin.Forms.Platform.iOS;
 [assembly: ExportRenderer(typeof(CarouselViewControl), typeof(CarouselViewRenderer))]
 namespace CarouselView.FormsPlugin.iOS
 {
-	/// <summary>
-	/// CarouselView Renderer
-	/// </summary>
-	public class CarouselViewRenderer : ViewRenderer<CarouselViewControl, UIView>
+    /// <summary>
+    /// CarouselView Renderer
+    /// </summary>
+    public class CarouselViewRenderer : ViewRenderer<CarouselViewControl, UIView>
 	{
         bool orientationChanged;
 
@@ -948,6 +948,14 @@ namespace CarouselView.FormsPlugin.iOS
                 // Exception thrown on Dispose #233
 				try
                 {
+                    foreach (var view in pageController.View.Subviews)
+                    {
+                        if (view is UIScrollView scroller)
+                        {
+                            scroller.Scrolled -= Scroller_Scrolled;
+                        }
+                    }
+
                     pageController.DidFinishAnimating -= PageController_DidFinishAnimating;
                     pageController.GetPreviousViewController = null;
                     pageController.GetNextViewController = null;
